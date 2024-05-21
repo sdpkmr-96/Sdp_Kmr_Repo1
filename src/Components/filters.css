@@ -1,0 +1,18 @@
+.search-box-container {
+    width: 66%;
+    margin-right: 0.8em;
+    position: relative;
+}
+
+.search-box-container input {
+    width: 100%;
+    padding: 2px 1em;
+}
+
+.lens-icon {
+    position: absolute;
+    right: 5px;
+    top: 7px;
+    color: blue;
+    transform: scaleX(-1);
+}
