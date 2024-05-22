@@ -16,3 +16,101 @@
     color: blue;
     transform: scaleX(-1);
 }
+
+.dd-icon {
+    position: relative;
+    top: 2px;
+}
+
+.filter-dd-container {
+    position: relative;
+}
+
+.dd-button {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #253858;
+    color: #253858;
+    border-radius: 4px;
+    font-size: 14px;
+    max-width: 150px;
+    min-width: 120px;
+    padding: 3px 5px;
+    height: 32px;
+    font-weight: 600;
+    user-select: none;
+    background-color: #FFFFFF;
+
+}
+
+.dd-active, .list-item-selected,
+.list-item:hover:not(.disabled) {
+    background-color: #253858;
+    color: #FFFFFF;
+}
+
+.dd-active .dd-icon,
+.sub-menu-item:hover .dd-icon {
+    fill: #FFFFFF;
+}
+
+.dd-menu-container {
+    z-index: 10;
+    cursor: default;
+    display: inline-block;
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    border-radius: 4px;
+    min-height: 50px;
+    max-height: 150px;
+    width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid #67676787;
+    box-shadow: 2px 2px 3px #67676787;
+}
+
+.dd-menu-list {
+    font-size: 14px;
+}
+
+.list-groups {
+    font-weight: 600;
+    margin: 0px 5px;
+}
+
+.list-item {
+    padding: 4px 12px;
+}
+
+.list-item .bordered {
+    font-weight: bold;
+}
+
+.sub-menu {
+    position: relative;
+}
+
+.sub-menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sub-menu-item-list {
+    position: absolute;
+    left: calc(100% + 12px);
+    top: 0px;
+    z-index: 11;
+    cursor: default;
+    display: inline-block;
+    border-radius: 4px;
+    min-height: 50px;
+    width: 100px;
+    background-color: #FFFFFF;
+    border: 1px solid #67676787;
+    box-shadow: 2px 2px 3px #67676787;
+    color: #000000;
+}
