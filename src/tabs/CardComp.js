@@ -13,10 +13,10 @@ function CardComp(props) {
                 <Card.Text>
                     <div className='card-employee-info'>
                         <Row>
-                            <Col>
+                            <Col xl="6">
                                 <div className='card-item-label'>Manager:&nbsp;</div><div className='card-item-value' >{user.manager}</div>
                             </Col>
-                            <Col>
+                            <Col xl="6">
                                 <div className='card-item-label'>Employee Id:&nbsp;</div><div className='card-item-value' >{user.employeeId}</div>
                             </Col>
                         </Row>
