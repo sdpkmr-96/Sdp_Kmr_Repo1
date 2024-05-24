@@ -3,15 +3,15 @@ import "./filters.css";
 import { ReactComponent as DropdownIcon } from "../graphics/icons/dropdown.svg";
 
 let g_ddMenuOpen = false;
+let searchBoxFocused = false;
 function Filters(props) {
-    const { locations } = props;
+    const { locations, loggedInManager, selectedLocation, setSelectedLocation, searchTxt, setSearchTxt, applySearch } = props;
     const [ddMenuOpen, setddMenuOpen] = useState(false);
-    const [selectedLocation, setSelectedLocation] = useState(locations[0]);
     const dropDownConatiner = useRef(null);
     const dropDownButton = useRef(null);
     const dropDownMenu = useRef(null);
 
-    const ddButtonTitle = (<> <span>Filter by</span> <DropdownIcon className='dd-icon' /> </>);
+    const ddButtonTitle = (<> <span>{selectedLocation == "All" ? 'Filter by' : selectedLocation}</span> <DropdownIcon className='dd-icon' /> </>);
 
 
     const toggleDropdownMenu = (value) => {
@@ -35,19 +35,42 @@ function Filters(props) {
         }
     }
 
+    const detectEnterKey = (evt) => {
+        const enterKeyCode = 13;
+        if (evt.keyCode === enterKeyCode && searchBoxFocused) {
+            applySearch();
+        }
+
+    }
+
     useEffect(() => {
         document.addEventListener("click", decideDropdownMenuClose);
+        document.addEventListener("keypress", detectEnterKey);
 
         return () => {
             document.removeEventListener("click", decideDropdownMenuClose);
+            document.removeEventListener("keypress", detectEnterKey);
+
         }
     }, [])
+
+    useEffect(() => {
+        if (Array.isArray(locations) && locations.length > 0) {
+            setSelectedLocation(locations[0]);
+        }
+    }, [locations]);
 
     return (
         <>
             <div className='search-box-container'>
-                <input type="text" placeholder='Search' />
-                <i className="fa fa-search lens-icon"></i>
+                <input
+                    onFocus={() => { searchBoxFocused = true }}
+                    onBlur={() => { searchBoxFocused = false }}
+                    value={searchTxt}
+                    onChange={(x) => setSearchTxt(x.target.value)}
+                    type="text" placeholder='Search'
+                />
+                <button className='search-txt-button' onClick={applySearch}><i className="fa fa-search lens-icon"></i></button>
             </div>
             <div className='filter-dd-container' ref={dropDownConatiner}>
                 <button ref={dropDownButton} className={ddMenuOpen ? `dd-active dd-button` : `dd-button`}>{ddButtonTitle}</button>
@@ -58,6 +81,7 @@ function Filters(props) {
                     locations={locations}
                     selectedLocation={selectedLocation}
                     setSelectedLocation={setSelectedLocation}
+                    loggedInManager={loggedInManager}
                 />
             </div>
         </>
@@ -67,7 +91,7 @@ function Filters(props) {
 export default Filters;
 
 function DDMenu(props) {
-    const { ddMenuOpen, reff, toggleDropdownMenu, locations, selectedLocation, setSelectedLocation } = props;
+    const { ddMenuOpen, reff, toggleDropdownMenu, locations, selectedLocation, setSelectedLocation, loggedInManager } = props;
     const [subMenuOpen, setSubMenuOpen] = useState(false);
     const subMenuItemRef = useRef(null);
     const subMenuListRef = useRef(null);
@@ -123,7 +147,7 @@ function DDMenu(props) {
                             </div>
                         </div>
                         <div className='list-groups'> Manager </div>
-                        <div className='list-item disabled'> <span className='bordered'>Adam Gray</span></div>
+                        <div className='list-item disabled'> <span className='bordered'>{loggedInManager}</span></div>
                     </div>
                 </div>
                 : null}
@@ -135,7 +159,12 @@ function SubMenuList(props) {
     const { subMenuOpen, subMenuListRef, locations, selectedLocation, setSelectedLocation } = props;
     const locationList = locations.map(location => {
         let _class = (location == selectedLocation) ? "list-item-selected" : "";
-        return (<div className={`list-item ${_class}`} onClick={() => setSelectedLocation(location)}> {location} </div>);
+        return (
+            <div key={location}
+                className={`list-item ${_class}`}
+                onClick={() => setSelectedLocation(location)}>
+                {location}
+            </div>);
     });
     return (
         <>{subMenuOpen ?

@@ -8,11 +8,24 @@
     width: 100%;
     padding: 2px 1em;
 }
-
-.lens-icon {
+.search-txt-button{
     position: absolute;
-    right: 5px;
-    top: 7px;
+    right: 2px;
+    top: 1.5px;
+    border-color: transparent;
+    background-color: #FFFFFF;
+    height: 28px
+}
+.search-txt-button:hover{
+    background-color: #efefef;
+}
+.search-txt-button:active{
+    background-color: #ccc;
+}
+.lens-icon {
+    position: relative;
+    bottom: 1px;
+    left: 1px;
     color: blue;
     transform: scaleX(-1);
 }

@@ -1,0 +1,6 @@
+.pagination-bar{
+    margin: 1em 0px;
+}
+.page-item{
+    user-select: none;
+}
