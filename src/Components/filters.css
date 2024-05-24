@@ -6,7 +6,7 @@
 
 .search-box-container input {
     width: 100%;
-    padding: 2px 1em;
+    padding: 2px 1em 2px 0.5em;
 }
 .search-txt-button{
     position: absolute;

@@ -161,10 +161,10 @@ function App() {
           <Tabs onSelect={onSelectTab}>
             <TabList>
               <Tab >
-                <label>All {userData.length}</label>
+                <label>All</label>
               </Tab>
               <Tab >
-                <label>My Team Users {myTeamUsers.length}</label>
+                <label>My Team Users</label>
               </Tab>
               <div className='layout-icon-conatiner'>
                 <div className={`layout-icon ${checkIsActive(layoutTypes.grid)}`} onClick={() => { setCurrTabLayout(layoutTypes.grid, selectedTabIndex) }}> <GridIcon className='grid-icon' /> </div>
