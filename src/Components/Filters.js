@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import "./filters.css";
 import { ReactComponent as DropdownIcon } from "../graphics/icons/dropdown.svg";
 
@@ -30,6 +30,8 @@ function Filters(props) {
 
         if (ddButtonClicked) {
             toggleDropdownMenu(!g_ddMenuOpen);
+        } else if (ddMenuClicked) {
+            toggleDropdownMenu(true);
         } else if (!ddMenuClicked) {
             toggleDropdownMenu(false);
         }
@@ -128,12 +130,11 @@ function DDMenu(props) {
     const subMenuItem = (<> <span>{selectedLocation}</span> <DropdownIcon className='dd-icon' /> </>);
     return (
         <>
-            {ddMenuOpen ?
-                <div ref={reff} className='dd-menu-container'>
+                <div ref={reff} className='dd-menu-container' style={{display: (ddMenuOpen ? "block": "none")}}>
                     <div className='dd-menu-list'>
                         <div className='list-groups'> Location </div>
-                        <div className={subMenuOpen ? `dd-active list-item` : `list-item`}>
-                            <div className='sub-menu' ref={subMenuItemRef}>
+                        <div ref={subMenuItemRef} className={subMenuOpen ? `dd-active list-item` : `list-item`}>
+                            <div className='sub-menu' >
                                 <div className='sub-menu-item'>
                                     {subMenuItem}
                                 </div>
@@ -150,7 +151,6 @@ function DDMenu(props) {
                         <div className='list-item disabled'> <span className='bordered'>{loggedInManager}</span></div>
                     </div>
                 </div>
-                : null}
         </>
     );
 }
